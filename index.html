@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Landing Page</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      background-image: url('./background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.5); /* overlay tint */
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      min-height: 100vh;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .game-image {
+      max-width: 90%;
+      max-height: 80vh; /* cap image height on desktop */
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .btn img {
+      width: 150px;
+      height: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .btn img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      body {
+        background-image: url('./background-mobile.png');
+      }
+      .game-image {
+        content: url('./heroimage-mobile.png');
+        max-height: 80vh; /* mobile image slightly bigger */
+      }
+      .buttons {
+        gap: 15px;
+      }
+      .btn img {
+        width: 130px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="./heroimage.png" alt="Game Image" class="game-image">
+
+    <div class="buttons">
+      <a href="https://play.google.com/store/apps/details?id=your.game.id" target="_blank" class="btn">
+        <img src="./playstore-icon.png" alt="Play Store">
+      </a>
+      <a href="https://elephant-tale-games.itch.io/crownwill-demo" target="_blank" class="btn">
+        <img src="./itchio-icon.png" alt="Itch.io">
+      </a>
+    </div>
+  </div>
+</body>
+</html>
