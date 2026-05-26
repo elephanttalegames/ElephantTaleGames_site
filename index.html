@@ -1,107 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Landing Page 1</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    body {
-      background-image: url('./background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown Will - Elephantale Games</title>
+    <style>
+        /* --- RESET & GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    body::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0,0,0,0.5); /* overlay tint */
-      z-index: 0;
-    }
+        body {
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: #001220;
+        }
 
-    .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      min-height: 100vh;
-      padding: 10px;
-      box-sizing: border-box;
-    }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    .game-image {
-      max-width: 90%;
-      max-height: 80vh; /* cap image height on desktop */
-      object-fit: contain;
-      border-radius: 8px;
-    }
+        /* --- BACKGROUND IMAGE LAYER --- */
+        .image-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('BG1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-    .buttons {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      flex-shrink: 0;
-    }
+        .image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, rgba(116, 98, 19, 0.5) 0%, rgba(0, 18, 32, 0.7) 80%);
+        }
 
-    .btn img {
-      width: 150px;
-      height: auto;
-      object-fit: contain;
-      transition: transform 0.3s ease;
-    }
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Vertically centers all children inside the header */
+            padding: 10px 8%;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            width: 100%;
+            min-height: 100px; /* Establishes a clean, consistent height for the navbar */
+        }
 
-    .btn img:hover {
-      transform: scale(1.05);
-    }
+        .logo {
+            display: flex;
+            align-items: center; /* Vertically centers the logo contents */
+            margin-right: auto;
+        }
 
-    /* Mobile adjustments */
-    @media (max-width: 768px) {
-      body {
-        background-image: url('./background-mobile.png');
-      }
-      .game-image {
-        content: url('./heroimage-mobile.png');
-        max-height: 80vh; /* mobile image slightly bigger */
-      }
-      .buttons {
-        gap: 15px;
-      }
-      .btn img {
-        width: 130px;
-      }
-    }
-  </style>
+        .logo-icon {
+            height: 80px;
+            display: flex;
+            align-items: center; /* Vertically centers the image inside its block container */
+        }
+
+        .logo-icon img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .btn-contact {
+            background: #f39c12;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, background 0.3s;
+            margin-left: auto;
+            white-space: nowrap;
+            
+            /* Ensures perfect textual vertical alignment inside the button */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-contact:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            padding: 60px 8% 80px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-phone {
+            width: 25%;
+            max-width: 280px;
+            background: #111;
+            border: 3px solid #ffffff;
+            border-radius: 30px;
+            height: 520px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .phone-left {
+            transform: rotate(-8deg);
+        }
+
+        .phone-right {
+            transform: rotate(8deg);
+        }
+
+        .phone-screen-mock {
+            flex-grow: 1;
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9;
+        }
+
+        .phone-left .phone-screen-mock {
+            background-image: url('left.png');
+        }
+
+        .phone-right .phone-screen-mock {
+            background-image: url('right.png');
+        }
+
+        .hero-center {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-logo-container {
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-logo-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        .hero-description {
+            font-size: 26px;
+            line-height: 1.4;
+            color: #e0e6ed;
+            margin-bottom: 35px;
+            font-weight: 700;
+            text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+        }
+
+        .google-play-badge img {
+            height: 100px;
+            transition: transform 0.2s;
+        }
+
+        .google-play-badge img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- YOUTUBE VIDEO SECTION --- */
+        .video-showcase-section {
+            background: rgba(5, 22, 34, 0.9);
+            padding: 60px 8%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 2;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .section-title span {
+            color: #f39c12;
+        }
+
+        .video-wrapper {
+            max-width: 850px;
+            
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 56.25%;
+            /* Responsive 16:9 Aspect Ratio */
+            height: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- CLEAN AND MINIMAL FOOTER --- */
+        footer {
+            background: rgba(1, 10, 22, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 8% 25px 8%;
+            z-index: 10;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 35px;
+        }
+
+        .footer-section h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            color: #718096;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #e2e8f0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .social-icon:hover {
+            background: #f39c12;
+            color: #000;
+            border-color: #f39c12;
+            transform: translateY(-2px);
+        }
+
+        .email-display {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.2s;
+        }
+
+        .email-display:hover {
+            color: #f39c12;
+        }
+
+        .email-icon {
+            color: #f39c12;
+            font-size: 20px;
+        }
+
+        /* Bottom Legal bar */
+        .bottom-bar {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .bottom-links a {
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .bottom-links a:hover {
+            color: #a0aec0;
+        }
+
+        /* --- RESPONSIVE ADAPTATIONS --- */
+        @media (max-width: 1024px) {
+            header {
+                padding: 10px 5%; 
+                min-height: 90px;
+                display: flex !important;
+                flex-direction: row !important; /* Lock alignment horizontally */
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
+
+            .logo {
+                margin-right: auto !important;
+            }
+
+            .btn-contact {
+                margin-left: auto !important;
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px 5%;
+                margin-top: 0px; 
+            }
+
+            .hero-phone {
+                display: none;
+            }
+
+            .hero-center {
+                width: 100%;
+            }
+
+            .hero-description {
+                font-size: 22px; /* Smoother scaling for intermediate screens */
+                line-height: 1.5;
+                margin-bottom: 25px;
+            }
+
+            .game-logo-container img {
+                width: 75%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 4%;
+                min-height: 85px;
+            }
+
+            .logo-icon {
+                height: 65px; /* Scale down the logo slightly on tablet */
+            }
+
+            .btn-contact {
+                padding: 8px 16px;
+                font-size: 11px;
+            }
+
+            .hero-description {
+                font-size: 20px;
+                padding: 0 10px;
+            }
+
+            .game-logo-container img {
+                width: 85%;
+            }
+
+            .google-play-badge img {
+                height: 85px; /* Clean scaling for play badge */
+            }
+
+            .video-showcase-section {
+                padding: 50px 4%;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+                margin-bottom: 25px;
+            }
+
+            .bottom-bar {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .bottom-links a {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                /* Explicitly keeping layout horizontal on smallest viewports */
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 10px 4% !important;
+            }
+
+            .logo-icon {
+                height: 55px; /* Mobile safe size */
+            }
+
+            .btn-contact {
+                padding: 8px 14px;
+                font-size: 11px;
+                letter-spacing: 0.3px;
+            }
+
+            .hero {
+                padding: 30px 4% 50px 4%;
+                gap: 20px;
+            }
+
+            .game-logo-container {
+                margin-bottom: 15px;
+            }
+
+            .game-logo-container img {
+                width: 95%;
+            }
+
+            .hero-description {
+                font-size: 16px;
+                line-height: 1.4;
+                margin-bottom: 20px;
+            }
+
+            .google-play-badge img {
+                height: 75px;
+            }
+
+            .section-title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            footer {
+                padding: 35px 4% 20px 4%;
+            }
+
+            .email-display {
+                font-size: 15px; /* Prevents overflow strings on compact screens */
+            }
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <img src="./heroimage.png" alt="Game Image" class="game-image">
 
-    <div class="buttons">
-      <a href="https://play.google.com/store/apps/details?id=your.game.id" target="_blank" class="btn">
-        <img src="./playstore-icon.png" alt="Play Store">
-      </a>
-      <a href="https://elephant-tale-games.itch.io/crownwill-demo" target="_blank" class="btn">
-        <img src="./itchio-icon.png" alt="Itch.io">
-      </a>
-    </div>
-  </div>
+<body>
+
+    <div class="image-bg-container"></div>
+    <div class="image-overlay"></div>
+
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="Logo.png" alt="Elephantale Games Logo">
+            </div>
+        </div>
+
+        <a href="#footer-anchor" class="btn-contact">Contact Us</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-phone phone-left">
+            <div class="phone-screen-mock"></div>
+        </div>
+
+        <div class="hero-center">
+            <div class="game-logo-container">
+                <img src="CrownWill.png" alt="Crown Will Game Logo Image">
+            </div>
+
+            <p class="hero-description">
+                Aim, shoot, and bounce your way through thrilling Plinko-style challenges as you collect taxes, build
+                powerful villages, and outsmart players from around the world.
+            </p>
+
+            <a href="https://play.google.com/store/apps/details?id=com.ElephantTale.CrownWill"
+                class="google-play-badge">
+                <img src="googleplay.png" alt="Get it on Google Play">
+            </a>
+        </div>
+
+        <div class="hero-phone phone-right">
+            <div class="phone-screen-mock"></div>
+        </div>
+    </section>
+
+    <section class="video-showcase-section">
+        <h2 class="section-title">Official <span>Gameplay Trailer</span></h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/Nf6qdea6tuY"
+                title="Crown Will - Elephantale Games Gameplay Trailer"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <footer id="footer-anchor">
+        <div class="footer-grid">
+
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.youtube.com/embed/Nf6qdea6tuY" class="social-icon" title="YouTube"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon" title="Discord"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <a href="mailto:elephantalegames@gmail.com" class="email-display" title="Email Elephantale Games">
+                    <span class="email-icon">✉</span> elephantalegames@gmail.com
+                </a>
+            </div>
+
+        </div>
+
+        <div class="bottom-bar">
+            <div>© 2026 Elephantale Games. All rights reserved.</div>
+            <div class="bottom-links">
+                <a href="https://elephanttalegames.com/privacy-policy.html">Privacy Policy</a>
+                <a href="https://elephanttalegames.com/terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
+
 </html>
